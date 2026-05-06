@@ -3,70 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy 18th, Bhumi! 🐻🐼</title>
+    <title>Jai Shree Krishna, Bhumi! 🌺</title>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@500;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-color: #ffeef2; --pink-accent: #ff85a2; --dark-pink: #d94a6e; --card-bg: #ffffff; --text-color: #5c3a41; }
+        :root { 
+            --bg-color: #ffeef2; 
+            --pink-accent: #ff85a2; 
+            --dark-pink: #d94a6e; 
+            --card-bg: rgba(255, 255, 255, 0.9); /* Slightly transparent to see BG */
+            --text-color: #5c3a41; 
+        }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Quicksand', sans-serif; background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; cursor: pointer; background-image: radial-gradient(#ffd1dc 2px, transparent 2px); background-size: 30px 30px; }
+        
+        body { 
+            font-family: 'Quicksand', sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            overflow-x: hidden; 
+            cursor: pointer;
+        }
+
+        /* 🌺 FULL BACKGROUND SHREENATHJI 🌺 */
+        .full-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            /* Using your specific file name from the repository */
+            background: linear-gradient(rgba(255, 238, 242, 0.7), rgba(255, 238, 242, 0.7)), url('shreenathji.jpg.png');
+            background-size: cover;
+            background-position: center;
+            filter: blur(2px); /* Makes the UI easier to read */
+        }
+
         .cursor-heart { position: fixed; pointer-events: none; font-size: 20px; animation: floatFade 1s forwards; z-index: 9999; }
         @keyframes floatFade { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-50px) scale(0.5); opacity: 0; } }
-        #entry-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #ffecf0; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; transition: opacity 1.5s ease-in-out; }
-        .shrinathji-img { width: 320px; -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 70%); mask-image: radial-gradient(circle, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 70%); animation: divineGlow 3s infinite alternate; margin-bottom: 10px; }
-        @keyframes divineGlow { 0% { filter: drop-shadow(0 0 15px rgba(255, 133, 162, 0.4)); transform: scale(1); } 100% { filter: drop-shadow(0 0 30px rgba(255, 133, 162, 0.8)); transform: scale(1.02); } }
-        h1 { font-family: 'Mali', cursive; color: var(--dark-pink); font-size: 3rem; text-align: center; margin-top: 0; }
-        .start-btn { background: var(--pink-accent); color: white; border: none; padding: 15px 40px; font-family: 'Mali', cursive; font-size: 1.5rem; border-radius: 50px; margin-top: 20px; cursor: pointer; box-shadow: 0 8px 0 #d94a6e; transition: 0.1s; }
+
+        #entry-screen { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
+            background: #ffecf0; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; z-index: 1000; 
+            transition: opacity 1.5s ease-in-out; 
+        }
+
+        /* Small preview on entry screen */
+        .shrinathji-entry { 
+            width: 250px; 
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(217, 74, 110, 0.3);
+            margin-bottom: 20px;
+        }
+
+        h1 { font-family: 'Mali', cursive; color: var(--dark-pink); font-size: 2.5rem; text-align: center; margin-top: 0; }
+        
+        .start-btn { 
+            background: var(--pink-accent); color: white; border: none; 
+            padding: 15px 40px; font-family: 'Mali', cursive; font-size: 1.5rem; 
+            border-radius: 50px; margin-top: 20px; cursor: pointer; 
+            box-shadow: 0 8px 0 #d94a6e; transition: 0.1s; 
+        }
         .start-btn:active { transform: translateY(8px); box-shadow: 0 0 0 #d94a6e; }
+
         #main-content { display: none; max-width: 600px; margin: 0 auto; padding: 40px 20px; padding-bottom: 100px; }
-        .cute-card { background: var(--card-bg); border-radius: 40px; padding: 30px; text-align: center; margin-bottom: 50px; border: 4px solid #ffe1e8; box-shadow: 0 20px 40px rgba(255, 133, 162, 0.15); position: relative; }
-        .cute-card::before, .cute-card::after { content: '🐾'; position: absolute; top: 20px; font-size: 24px; opacity: 0.5; }
-        .cute-card::before { left: 20px; } .cute-card::after { right: 20px; transform: scaleX(-1); }
+        
+        .cute-card { 
+            background: var(--card-bg); border-radius: 40px; padding: 30px; 
+            text-align: center; margin-bottom: 50px; border: 4px solid #ffe1e8; 
+            box-shadow: 0 20px 40px rgba(255, 133, 162, 0.15); position: relative; 
+            backdrop-filter: blur(5px);
+        }
+        
         .section-gif { width: 160px; margin-top: -80px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); }
         h2 { font-family: 'Mali', cursive; color: var(--dark-pink); font-size: 1.8rem; margin: 15px 0; }
+        
         .polaroid-container { display: flex; flex-direction: column; gap: 40px; margin-top: 20px; align-items: center; }
-        .polaroid { background: white; padding: 15px 15px 25px 15px; border-radius: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); width: 85%; transform: rotate(-3deg); position: relative; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .polaroid:nth-child(even) { transform: rotate(3deg); }
-        .polaroid:hover { transform: scale(1.05) rotate(0deg); z-index: 10; }
+        .polaroid { background: white; padding: 15px 15px 25px 15px; border-radius: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); width: 85%; transform: rotate(-3deg); position: relative; transition: 0.3s; }
         .polaroid img { width: 100%; border-radius: 5px; }
         .caption { font-family: 'Mali', cursive; color: var(--dark-pink); margin-top: 15px; font-size: 1.2rem; font-weight: bold; }
-        .tape { position: absolute; top: -15px; left: 50%; transform: translateX(-50%) rotate(-2deg); width: 80px; height: 25px; background: rgba(255, 133, 162, 0.5); backdrop-filter: blur(2px); border-radius: 2px; }
-        .letter-box { background: #fff0f3; padding: 20px; border-radius: 20px; font-family: 'Mali', cursive; font-size: 1.1rem; text-align: left; line-height: 1.6; border: 2px dashed var(--pink-accent); min-height: 250px; }
+        
+        .letter-box { background: rgba(255, 240, 243, 0.8); padding: 20px; border-radius: 20px; font-family: 'Mali', cursive; font-size: 1.1rem; text-align: left; line-height: 1.6; border: 2px dashed var(--pink-accent); min-height: 250px; }
         .cake-emoji { font-size: 100px; animation: gentleBounce 2s infinite; cursor: pointer; }
         @keyframes gentleBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
     </style>
 </head>
 <body>
 
-<audio id="bday-music" loop>
+<div class="full-bg"></div>
+
+<audio id="bday-music">
     <source src="birthday_song.mp3.mp3" type="audio/mpeg">
 </audio>
 
 <audio id="memory-music" loop>
     <source src="memory_song.mp3" type="audio/mpeg">
-    <source src="memory_song.mp3" type="audio/mp4">
 </audio>
 
 <div id="entry-screen">
-    <img src="shreenathji.jpg.png" class="shrinathji-img" alt="Shrinathji">
-    <h1>Hey Bhumi...</h1>
-    <button class="start-btn" onclick="enterBubuWorld()">Tap for a surprise! 🐾</button>
+    <img src="shreenathji.jpg.png" class="shrinathji-entry" alt="Shrinathji">
+    <h1>jai shree krishna babe</h1>
+    <button class="start-btn" onclick="enterBubuWorld()">click here babyy</button>
 </div>
 
 <div id="main-content">
     <div class="cute-card">
-        <img src="https://media.tenor.com/zWz2x4nZ6gYAAAAj/bubu-bubu-dudu.gif" class="section-gif" alt="Bubu Typing">
+        <img src="https://media.tenor.com/zWz2x4nZ6gYAAAAj/bubu-bubu-dudu.gif" class="section-gif">
         <h2>Only for sirf aur sirf mera teddybear 💌</h2>
         <div class="letter-box" id="love-letter"></div>
     </div>
 
-    <div class="cute-card" id="scrapbook-section">
-        <img src="https://media.tenor.com/2s_X9_B2q0gAAAAj/bubu-dudu-love.gif" class="section-gif" alt="Bubu Kisses">
+    <div class="cute-card">
+        <img src="https://media.tenor.com/2s_X9_B2q0gAAAAj/bubu-dudu-love.gif" class="section-gif">
         <h2>Our Scrapbook 📸</h2>
         <div class="polaroid-container">
-            <div class="polaroid"><div class="tape"></div><img src="2026-05-06_21-50-54_337.png"><p class="caption">The first time my heart skipped a beat. ✨</p></div>
-            <div class="polaroid"><div class="tape"></div><img src="2026-05-06_21-50-54_445.jpg"><p class="caption">Every smile of yours is a treasure. 💕</p></div>
-            <div class="polaroid"><div class="tape"></div><img src="2026-05-06_21-50-54_563.jpg"><p class="caption">To many more years together. 🐻</p></div>
-            <div class="polaroid"><div class="tape"></div><img src="2026-05-06_21-50-54_575.jpg"><p class="caption">My forever and always. 🐼</p></div>
+            <div class="polaroid"><img src="2026-05-06_21-50-54_337.png"><p class="caption">The first time my heart skipped a beat. ✨</p></div>
+            <div class="polaroid"><img src="2026-05-06_21-50-54_445.jpg"><p class="caption">Every smile of yours is a treasure. 💕</p></div>
+            <div class="polaroid"><img src="2026-05-06_21-50-54_563.jpg"><p class="caption">To many more years together. 🐻</p></div>
+            <div class="polaroid"><img src="2026-05-06_21-50-54_575.jpg"><p class="caption">My forever and always. 🐼</p></div>
         </div>
     </div>
 
@@ -89,14 +144,15 @@
         }
     });
 
-    let hasEntered = false;
     const bdayAudio = document.getElementById('bday-music');
     const memoryAudio = document.getElementById('memory-music');
 
+    bdayAudio.onended = function() {
+        memoryAudio.play();
+    };
+
     function enterBubuWorld() {
-        hasEntered = true;
         bdayAudio.play();
-        // Pre-warm the second track
         memoryAudio.play().then(() => { memoryAudio.pause(); }).catch(e => console.log(e));
         
         document.getElementById('entry-screen').style.opacity = '0';
@@ -113,20 +169,9 @@
     function typeWriter() {
         if (i < textToType.length) {
             document.getElementById("love-letter").innerHTML += textToType.charAt(i);
-            i++; setTimeout(typeWriter, 40); 
+            i++; setTimeout(typeWriter, 45); 
         }
     }
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && hasEntered) {
-                bdayAudio.pause(); memoryAudio.play();
-            } else if (!entry.isIntersecting && hasEntered) {
-                memoryAudio.pause(); bdayAudio.play();
-            }
-        });
-    }, { threshold: 0.1 }); 
-    observer.observe(document.getElementById('scrapbook-section'));
 
     function blowCandles() {
         document.getElementById('cake').innerHTML = '🍰';
