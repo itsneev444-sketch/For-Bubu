@@ -10,7 +10,7 @@
             --bg-color: #ffeef2; 
             --pink-accent: #ff85a2; 
             --dark-pink: #d94a6e; 
-            --card-bg: rgba(255, 255, 255, 0.75); 
+            --card-bg: rgba(255, 255, 255, 0.85); 
             --text-color: #5c3a41; 
         }
         
@@ -23,27 +23,27 @@
             overflow-x: hidden; 
             cursor: pointer;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
+
+        /* Locks scrolling while typing */
+        body.locked { overflow-y: hidden !important; }
 
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #ffe1e8; }
         ::-webkit-scrollbar-thumb { background: var(--pink-accent); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--dark-pink); }
 
-        /* ✨ FIXED: Hearts now have z-index: 9998 to float OVER the background ✨ */
+        /* ✨ Fixed & Enhanced Floating Hearts ✨ */
         .floating-heart {
-            position: fixed; color: var(--pink-accent); pointer-events: none;
-            z-index: 9998; animation: floatUp 4s linear infinite; opacity: 0.8;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            position: fixed; pointer-events: none; z-index: 9998; 
+            animation: floatUp 5s linear infinite; opacity: 0.9;
+            filter: drop-shadow(0 0 5px rgba(255, 133, 162, 0.6));
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(100vh) scale(0.8) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5) rotate(360deg); opacity: 0; }
         }
 
-        /* ✨ Cursor/Touch Trail ✨ */
         .cursor-heart { position: fixed; pointer-events: none; font-size: 20px; animation: floatFade 1s forwards; z-index: 9999; }
         @keyframes floatFade { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-50px) scale(0.5); opacity: 0; } }
 
@@ -75,8 +75,6 @@
             100% { transform: scale(1); box-shadow: 0 8px 15px rgba(217, 74, 110, 0.4), 0 8px 0 #d94a6e; }
         }
 
-        .start-btn:active { transform: translateY(8px); box-shadow: 0 0 0 #d94a6e; }
-
         /* 🐼 MAIN CONTENT 🐼 */
         #main-content { 
             display: none; max-width: 600px; margin: 0 auto; padding: 40px 20px; padding-bottom: 100px;
@@ -89,11 +87,22 @@
             text-align: center; margin-bottom: 60px; border: 2px solid rgba(255, 255, 255, 0.6); 
             box-shadow: 0 25px 50px rgba(255, 133, 162, 0.15), inset 0 0 20px rgba(255, 255, 255, 0.8); 
             position: relative; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
-        .cute-card:hover { transform: translateY(-5px); }
         .section-gif { width: 160px; margin-top: -85px; filter: drop-shadow(0 8px 15px rgba(0,0,0,0.15)); }
+        
+        /* Glowing Note Box */
+        .letter-box { 
+            background: rgba(255, 240, 243, 0.95); padding: 25px; border-radius: 25px; 
+            font-family: 'Mali', cursive; font-size: 1.15rem; text-align: left; line-height: 1.8; 
+            border: 2px dashed var(--pink-accent); min-height: 250px; 
+            animation: gentleGlow 3s infinite alternate;
+        }
+
+        @keyframes gentleGlow {
+            0% { box-shadow: 0 0 10px rgba(255, 133, 162, 0.2); }
+            100% { box-shadow: 0 0 25px rgba(255, 133, 162, 0.6); }
+        }
         
         .polaroid-container { display: flex; flex-direction: column; gap: 50px; margin-top: 20px; align-items: center; }
         
@@ -106,25 +115,17 @@
 
         .polaroid.visible { opacity: 1; transform: translateY(0) scale(1) rotate(-3deg); }
         .polaroid.visible:nth-child(even) { transform: translateY(0) scale(1) rotate(3deg); }
-
-        .polaroid:hover.visible { 
-            transform: scale(1.08) rotate(0deg) !important; 
-            box-shadow: 0 20px 40px rgba(217, 74, 110, 0.25); z-index: 10;
-        }
-
+        .polaroid:hover.visible { transform: scale(1.08) rotate(0deg) !important; box-shadow: 0 20px 40px rgba(217, 74, 110, 0.25); z-index: 10; }
         .polaroid img { width: 100%; border-radius: 6px; }
         .caption { font-family: 'Mali', cursive; color: var(--dark-pink); margin-top: 15px; font-size: 1.15rem; font-weight: bold; }
         
-        .letter-box { background: rgba(255, 240, 243, 0.95); padding: 25px; border-radius: 25px; font-family: 'Mali', cursive; font-size: 1.15rem; text-align: left; line-height: 1.8; border: 2px solid rgba(255, 133, 162, 0.5); box-shadow: inset 0 0 10px rgba(255, 133, 162, 0.1); min-height: 250px; }
-        
-        .cake-emoji { font-size: 110px; animation: gentleBounce 2s infinite; cursor: pointer; transition: 0.3s; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1)); }
+        /* ✨ BIG CAKE ✨ */
+        .cake-emoji { font-size: 160px; animation: gentleBounce 2s infinite; cursor: pointer; transition: 0.3s; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15)); }
         .cake-emoji:hover { transform: scale(1.15) rotate(-5deg); }
         @keyframes gentleBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
     </style>
 </head>
-<body>
-
-<audio id="bday-music">
+<body class="locked"> <audio id="bday-music">
     <source src="birthday_song.mp3.mp3" type="audio/mpeg">
 </audio>
 
@@ -162,15 +163,15 @@
 
     <div class="cute-card">
         <img src="https://media.tenor.com/lZJtL-fN58UAAAAj/bubu-dudu.gif" class="section-gif">
-        <h2>Make a Wish! 🎉</h2>
+        <h2>Make a wish baby! 🎉</h2>
         <div class="cake-emoji" id="cake" onclick="blowCandles()">🎂</div>
-        <h3 id="wish-text" style="display: none; color: var(--pink-accent); font-family: 'Mali'; margin-top: 25px; font-size: 1.4rem;">May Krishna always keep us together! ✨</h3>
+        <h3 id="wish-text" style="display: none; color: var(--pink-accent); font-family: 'Mali'; margin-top: 25px; font-size: 1.8rem; text-shadow: 2px 2px 5px rgba(255,133,162,0.3);">happy birthday mah sweetu baby ❤️</h3>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 <script>
-    // ✨ FIXED: Mouse AND Touch Trail ✨
+    // 💖 Mouse & Touch Trail 
     function createTrail(x, y) {
         if (Math.random() > 0.6) { 
             const heart = document.createElement('div');
@@ -183,21 +184,22 @@
         }
     }
     document.addEventListener('mousemove', e => createTrail(e.pageX, e.pageY));
-    document.addEventListener('touchmove', e => createTrail(e.touches[0].pageX, e.touches[0].pageY)); // Adds support for swiping on phones!
+    document.addEventListener('touchmove', e => createTrail(e.touches[0].pageX, e.touches[0].pageY));
 
-    // ✨ FIXED: Falling Background Hearts ✨
-    function createBackgroundHeart() {
-        const heart = document.createElement('div');
-        heart.innerHTML = ['❤️', '💖', '🌸', '✨'][Math.floor(Math.random() * 4)];
-        heart.className = 'floating-heart';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-        heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 6000);
+    // 💖 Background Hearts (Only starts after clicking)
+    function startBackgroundHearts() {
+        setInterval(() => {
+            const heart = document.createElement('div');
+            // Using actual text/emojis with bright colors so they stand out
+            heart.innerHTML = ['❤️', '💖', '💕', '✨'][Math.floor(Math.random() * 4)];
+            heart.className = 'floating-heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 25 + 15) + 'px';
+            heart.style.animationDuration = (Math.random() * 4 + 3) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 7000);
+        }, 300); // Spawns quickly!
     }
-    // Makes them spawn faster so you see them immediately
-    setInterval(createBackgroundHeart, 250);
 
     const bdayAudio = document.getElementById('bday-music');
     const memoryAudio = document.getElementById('memory-music');
@@ -205,15 +207,23 @@
     bdayAudio.onended = function() { memoryAudio.play(); };
 
     function enterBubuWorld() {
+        window.scrollTo(0, 0); // Forces screen to top so she sees the letter
         bdayAudio.play();
         memoryAudio.play().then(() => { memoryAudio.pause(); }).catch(e => console.log(e));
         
         document.getElementById('entry-screen').style.opacity = '0';
+        
         setTimeout(() => {
             document.getElementById('entry-screen').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
             
-            confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 }, colors: ['#ff85a2', '#ffffff', '#ffd1dc', '#d94a6e'] });
+            // Start the massive hearts rain
+            startBackgroundHearts();
+
+            // Big Confetti burst on entry
+            confetti({ particleCount: 250, spread: 120, origin: { y: 0.6 }, colors: ['#ff85a2', '#ffffff', '#ffd1dc', '#d94a6e'] });
+            
+            // Start typing
             typeWriter();
             
             const observer = new IntersectionObserver((entries) => {
@@ -233,10 +243,17 @@
 
     const textToType = "Happy birthday, meri sweetie! Nunu loves you more than anything. Ever since you came into my life, everything seems to have a meaning. My heartbeat now has a name to say with each beat. May Krishna always keep us together (I know He will). Bubu, I can't express how much I love you. This is your first birthday with me, and there are so many more to come. I'll do anything just to see you smile. I miss you so much!. Btw Babe, I'm sorry I lied to u; I was doing this when I was gone. Wanted to keep it as a surprise. I love U. I'm gonna marry U one day, and we will live happily ever after!";
     let i = 0;
+    
     function typeWriter() {
         if (i < textToType.length) {
             document.getElementById("love-letter").innerHTML += textToType.charAt(i);
             i++; setTimeout(typeWriter, 45); 
+        } else {
+            // UNLOCKS SCROLLING ONLY WHEN DONE TYPING
+            document.body.classList.remove('locked');
+            
+            // Little extra confetti pop to say "done!"
+            confetti({ particleCount: 50, spread: 60, origin: { y: 0.8 }, colors: ['#ff85a2'] });
         }
     }
 
@@ -244,11 +261,12 @@
         document.getElementById('cake').innerHTML = '🍰';
         document.getElementById('wish-text').style.display = 'block';
         
-        var end = Date.now() + (2.5 * 1000);
-        var colors = ['#ff85a2', '#ffffff', '#ffd1dc'];
+        // Massive cake confetti explosion
+        var end = Date.now() + (3.5 * 1000);
+        var colors = ['#ff85a2', '#ffffff', '#ffd1dc', '#d94a6e'];
         (function frame() {
-          confetti({ particleCount: 4, angle: 60, spread: 60, origin: { x: 0 }, colors: colors });
-          confetti({ particleCount: 4, angle: 120, spread: 60, origin: { x: 1 }, colors: colors });
+          confetti({ particleCount: 6, angle: 60, spread: 80, origin: { x: 0 }, colors: colors });
+          confetti({ particleCount: 6, angle: 120, spread: 80, origin: { x: 1 }, colors: colors });
           if (Date.now() < end) { requestAnimationFrame(frame); }
         }());
     }
