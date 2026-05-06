@@ -106,7 +106,7 @@
 </audio>
 
 <audio id="memory-music" loop>
-    <source src="memory_song.m4a" type="audio/mp4">
+    <source src="memory_song.mp3" type="audio/mpeg">
 </audio>
 
 <div id="entry-screen">
@@ -185,7 +185,11 @@
 
     function enterBubuWorld() {
         hasEntered = true;
+        
+        // UNLOCK AUDIO ON FIRST TAP
         bdayAudio.play().catch(e => console.log("Bday Play Blocked:", e));
+        
+        // Silent unlock for second track
         memoryAudio.volume = 0;
         memoryAudio.play().then(() => {
             memoryAudio.pause();
@@ -233,10 +237,4 @@
         var end = Date.now() + (3 * 1000);
         (function frame() {
             confetti({ particleCount: 7, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff85a2', '#d94a6e'] });
-            confetti({ particleCount: 7, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff85a2', '#d94a6e'] });
-            if (Date.now() < end) requestAnimationFrame(frame);
-        }());
-    }
-</script>
-</body>
-</html>
+            confetti({ particleCount: 7, angle:
