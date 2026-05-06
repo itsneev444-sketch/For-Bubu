@@ -3,205 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy 18th, Bhumi!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Parisienne&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>Happy 18th, Bubu!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #fff0f3 0%, #ffe5ec 100%);
-            --soft-pink: #ffb3c1;
-            --deep-pink: #ff4d6d;
-            --glass: rgba(255, 255, 255, 0.7);
-            --text: #5e4b4e;
+            --bg: #ffe6ea;
+            --pink: #ff758f;
+            --dark-pink: #c9184a;
+            --white: #ffffff;
+            --text: #590d22;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Quicksand', sans-serif; background: var(--bg-gradient); color: var(--text); overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
 
-        /* Floating Hearts */
-        .hearts-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
-        .heart-particle { position: absolute; color: var(--soft-pink); animation: floatUp 6s ease-in infinite; opacity: 0; }
-        @keyframes floatUp { 0% { transform: translateY(100vh) scale(0); opacity: 0; } 50% { opacity: 0.6; } 100% { transform: translateY(-10vh) scale(1.5); opacity: 0; } }
+        /* Floating Hearts Animation */
+        .heart { position: absolute; font-size: 20px; animation: floatUp 4s linear infinite; opacity: 0; pointer-events: none; z-index: 0; }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+        }
 
-        /* General Layout */
-        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; display: none; } /* Hidden until start */
-        .card { background: var(--glass); backdrop-filter: blur(10px); border-radius: 30px; padding: 30px; margin-bottom: 40px; border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 15px 35px rgba(255, 77, 109, 0.1); text-align: center; }
-        h2 { font-family: 'Parisienne', cursive; font-size: 2.5rem; color: var(--deep-pink); margin-bottom: 20px; }
+        /* Screen 1: The Envelope */
+        #envelope-screen {
+            height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, #ffb3c6, #ff8fa3); z-index: 100; position: fixed; width: 100%; transition: top 1s ease-in-out;
+        }
+        .envelope-wrapper { cursor: pointer; text-align: center; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        .envelope-img { width: 150px; margin-bottom: 20px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2)); }
+        .tap-text { font-family: 'Fredoka', sans-serif; font-size: 2rem; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+
+        /* Main App Container */
+        #main-app { display: none; padding: 40px 20px; max-width: 600px; margin: 0 auto; position: relative; z-index: 10; }
+
+        /* Cute Cards */
+        .cute-card {
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
+            border-radius: 30px; padding: 30px; text-align: center; margin-bottom: 40px;
+            box-shadow: 0 15px 25px rgba(255, 117, 143, 0.15); border: 3px solid white;
+            transform: scale(0.95); opacity: 0; transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .cute-card.visible { transform: scale(1); opacity: 1; }
         
-        .btn-main { background: var(--deep-pink); color: white; border: none; padding: 15px 35px; border-radius: 50px; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4); }
-        .btn-main:hover { transform: scale(1.05); }
+        .bubu-gif { width: 120px; margin-top: -60px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); }
+        h1, h2 { font-family: 'Fredoka', sans-serif; color: var(--dark-pink); margin-bottom: 15px; }
 
-        /* Unlock Screen */
-        .unlock-screen { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .unlock-screen h1 { font-family: 'Parisienne', cursive; font-size: 4rem; color: var(--deep-pink); margin-bottom: 20px; }
-        .bubu-dudu-img { width: 200px; border-radius: 20px; margin-bottom: 20px; }
+        /* 3D Photo Stack */
+        .photo-stack { position: relative; height: 300px; width: 100%; margin: 30px 0; perspective: 1000px; }
+        .photo {
+            position: absolute; width: 220px; height: 260px; left: 50%; top: 50%; transform: translate(-50%, -50%);
+            background: white; padding: 10px 10px 40px 10px; border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15); cursor: pointer; transition: all 0.5s ease;
+        }
+        .photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+        .photo::after { content: 'Tap to flip!'; position: absolute; bottom: 12px; left: 0; width: 100%; text-align: center; font-family: 'Fredoka'; color: #888; font-size: 14px; }
 
-        /* Carousel */
-        .carousel-wrapper { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding: 20px 0; }
-        .carousel-wrapper::-webkit-scrollbar { display: none; }
-        .slide { flex: 0 0 80%; scroll-snap-align: center; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        
-        /* Timeline */
-        .timeline { position: relative; max-width: 1200px; margin: 0 auto; text-align: left; }
-        .timeline::after { content: ''; position: absolute; width: 4px; background: var(--soft-pink); top: 0; bottom: 0; left: 50%; margin-left: -2px; border-radius: 5px; }
-        .tk-container { padding: 10px 40px; position: relative; width: 50%; }
-        .tk-left { left: 0; } .tk-right { left: 50%; }
-        .tk-container::after { content: '❤️'; position: absolute; width: 25px; height: 25px; right: -12px; background: white; border: 4px solid var(--soft-pink); top: 15px; border-radius: 50%; z-index: 1; text-align: center; line-height: 18px; font-size: 12px; }
-        .tk-right::after { left: -12px; }
-        .tk-content { padding: 20px; background: white; position: relative; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        /* Interactive Quiz Buttons */
+        .quiz-btn {
+            background: white; border: 2px solid var(--pink); border-radius: 20px; padding: 15px; margin: 10px 0;
+            width: 100%; font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: bold; color: var(--text);
+            cursor: pointer; transition: 0.3s;
+        }
+        .quiz-btn:hover { background: var(--pink); color: white; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255, 117, 143, 0.3); }
 
-        /* Quiz */
-        .quiz-option { display: block; width: 100%; padding: 12px; margin: 10px 0; background: white; border: 2px solid var(--soft-pink); border-radius: 15px; cursor: pointer; transition: 0.2s; font-family: 'Quicksand'; font-weight: 600; color: var(--text); }
-        .quiz-option:hover { background: var(--soft-pink); color: white; }
-        .error-msg { color: red; display: none; font-weight: bold; margin-top: 10px; }
-
-        /* Cake Section (Hidden initially) */
-        #cake-card { display: none; }
-        .cake { font-size: 100px; cursor: pointer; display: inline-block; transition: 0.3s; }
-        .cake:hover { transform: scale(1.1); }
+        /* Cake Button */
+        .blow-btn {
+            background: var(--dark-pink); color: white; border: none; padding: 15px 40px; border-radius: 50px;
+            font-family: 'Fredoka', sans-serif; font-size: 1.2rem; cursor: pointer; box-shadow: 0 8px 20px rgba(201, 24, 74, 0.4);
+            margin-top: 20px; transition: 0.2s;
+        }
+        .blow-btn:hover { transform: scale(1.1); }
     </style>
 </head>
 <body>
 
-<div class="hearts-container" id="hearts"></div>
-
-<!-- Background Audio (Hidden) -->
+<!-- Background Audio -->
 <audio id="bg-music" loop>
-    <!-- UPDATE THIS LINK WITH YOUR SONG -->
     <source src="my_song.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Screen 1: The Unlock -->
-<section class="unlock-screen" id="unlock-screen">
-    <!-- UPDATE THIS WITH BUBU DUDU GIF -->
-    <img src="https://media.tenor.com/gJIa4pDkikAAAAAM/bubu-dudu.gif" alt="Bubu and Dudu" class="bubu-dudu-img">
-    <h1>Hey Bubu...</h1>
-    <p style="margin-bottom: 20px; font-size: 1.2rem;">I made something special for you. Turn your volume up!</p>
-    <button class="btn-main" onclick="startSurprise()">Tap to Unlock ✨</button>
-</section>
+<!-- Screen 1: Interactive Envelope -->
+<div id="envelope-screen" onclick="openEnvelope()">
+    <div class="envelope-wrapper">
+        <!-- Cute Bubu Mail Delivery GIF -->
+        <img src="https://media.tenor.com/a4gYjYJ7bLAAAAAj/bubu-dudu.gif" class="envelope-img" alt="Mail">
+        <div class="tap-text">Tap to open... 💌</div>
+    </div>
+</div>
 
-<!-- Main Content (Unlocks after tap) -->
-<div class="container" id="main-content">
+<!-- Main App -->
+<div id="main-app">
     
-    <!-- Letter -->
-    <div class="card">
-        <h2>A Little Note</h2>
-        <p style="font-family: 'Dancing Script', cursive; font-size: 1.8rem; line-height: 1.5; color: #d6336c;">
-            Happy 18th Birthday, Bhumi! Since the moment you entered my life, everything has been better. Here is a little walk down memory lane just for us. I love you!
-        </p>
+    <!-- Welcome Card -->
+    <div class="cute-card visible">
+        <img src="https://media.tenor.com/bTf_Iu7122MAAAAj/bubu-bubu-dudu.gif" class="bubu-gif" alt="Bubu Hug">
+        <h1>Happy 18th, Bhumi!</h1>
+        <p>I built this tiny corner of the internet just for us. Scroll down for your surprises!</p>
     </div>
 
-    <!-- Reasons I Love You Carousel -->
-    <div class="card">
-        <h2>Reasons I Love You</h2>
-        <p style="font-size: 0.9rem; color: #888;">(Swipe to read ➡️)</p>
-        <div class="carousel-wrapper">
-            <div class="slide"><h3>1. Your Smile</h3><p>It literally lights up my entire world.</p></div>
-            <div class="slide"><h3>2. Your Laugh</h3><p>It's my favorite sound (besides this song, obviously).</p></div>
-            <div class="slide"><h3>3. You are YOU</h3><p>There is nobody else quite like you, Bubu.</p></div>
-            <div class="slide"><h3>4. The Way You...</h3><p>[Add your own custom reason here!]</p></div>
+    <!-- 3D Photo Stack Gallery -->
+    <div class="cute-card">
+        <img src="https://media.tenor.com/2s_X9_B2q0gAAAAj/bubu-dudu-love.gif" class="bubu-gif" alt="Photos">
+        <h2>Our Best Memories</h2>
+        <p>Tap the photos to shuffle through them!</p>
+        <div class="photo-stack" id="stack">
+            <!-- REPLACE THESE LINKS WITH YOUR HIGH-QUALITY PHOTOS -->
+            <div class="photo" style="transform: translate(-50%, -50%) rotate(-5deg); z-index: 3;"><img src="photo1.jpg"></div>
+            <div class="photo" style="transform: translate(-50%, -50%) rotate(5deg); z-index: 2;"><img src="photo2.jpg"></div>
+            <div class="photo" style="transform: translate(-50%, -50%) rotate(-2deg); z-index: 1;"><img src="photo3.jpg"></div>
         </div>
     </div>
 
-    <!-- Timeline -->
-    <div class="card">
-        <h2>Our Journey</h2>
-        <div class="timeline">
-            <div class="tk-container tk-left">
-                <div class="tk-content">
-                    <h3 style="color: var(--deep-pink)">The Day We Met</h3>
-                    <p>When it all started.</p>
-                </div>
-            </div>
-            <div class="tk-container tk-right">
-                <div class="tk-content">
-                    <h3 style="color: var(--deep-pink)">Our First Date</h3>
-                    <p>I was so nervous but it was perfect.</p>
-                </div>
-            </div>
-            <div class="tk-container tk-left">
-                <div class="tk-content">
-                    <h3 style="color: var(--deep-pink)">Today</h3>
-                    <p>Celebrating your 18th!</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- The Quiz -->
-    <div class="card" id="quiz-card">
+    <!-- Interactive Quiz -->
+    <div class="cute-card" id="quiz-container">
+        <img src="https://media.tenor.com/K1Lg0RzI97oAAAAj/bubu-dudu-bubu.gif" class="bubu-gif" alt="Thinking">
         <h2>The Bubu Test 📝</h2>
-        <p>You have to pass this to get your cake!</p>
-        <img src="https://media.tenor.com/2s_X9_B2q0gAAAAj/bubu-dudu-love.gif" style="width: 100px; margin: 15px 0;">
-        <br>
-        <strong style="font-size: 1.2rem;">Question: What is my absolute favorite thing to do with you?</strong>
-        <div style="margin-top: 15px;">
-            <button class="quiz-option" onclick="checkAnswer(false)">A) Watching Movies</button>
-            <button class="quiz-option" onclick="checkAnswer(true)">B) Just talking and spending time together</button>
-            <button class="quiz-option" onclick="checkAnswer(false)">C) Going out to eat</button>
-        </div>
-        <div class="error-msg" id="quiz-error">Oops! Try again, Bubu! 😝</div>
+        <p style="margin-bottom: 15px;">Answer correctly to unlock your cake!</p>
+        <strong>What is my absolute favorite thing about you?</strong>
+        <button class="quiz-btn" onclick="wrongAnswer(this)">Your terrible jokes</button>
+        <button class="quiz-btn" onclick="correctAnswer()">Everything about you</button>
+        <button class="quiz-btn" onclick="wrongAnswer(this)">Your stealing my food</button>
     </div>
 
-    <!-- The Cake (Hidden until quiz passed) -->
-    <div class="card" id="cake-card">
-        <h2>You Passed! 🎉</h2>
-        <p>Now make a wish...</p>
-        <div class="cake" id="main-cake" onclick="blowCandles()">🎂</div>
-        <div style="font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: var(--deep-pink); display: none;" id="wish-msg">✨ Happy 18th Birthday! ✨</div>
+    <!-- The Cake Reveal (Hidden initially) -->
+    <div class="cute-card" id="cake-card" style="display: none;">
+        <img src="https://media.tenor.com/lZJtL-fN58UAAAAj/bubu-dudu.gif" class="bubu-gif" alt="Party">
+        <h2>Make a Wish! 🎂</h2>
+        <div style="font-size: 80px; margin: 20px 0;" id="cake-emoji">🕯️🍰🕯️</div>
+        <button class="blow-btn" onclick="blowCandles()">Blow out candles 💨</button>
+        <h2 id="final-msg" style="display: none; margin-top: 20px; color: var(--pink);">I love you!</h2>
     </div>
 
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 <script>
-    // 1. Floating Hearts
-    function createHeart() {
-        const h = document.createElement('div');
-        h.className = 'heart-particle';
-        h.innerHTML = '❤️';
-        h.style.left = Math.random() * 100 + 'vw';
-        h.style.fontSize = (Math.random() * 20 + 10) + 'px';
-        h.style.animationDuration = (Math.random() * 3 + 4) + 's';
-        document.getElementById('hearts').appendChild(h);
-        setTimeout(() => h.remove(), 7000);
-    }
-    setInterval(createHeart, 400);
+    // 1. Envelope Opening & Music
+    function openEnvelope() {
+        document.getElementById('envelope-screen').style.top = '-100vh';
+        document.getElementById('main-app').style.display = 'block';
+        
+        // Try to play music
+        let audio = document.getElementById('bg-music');
+        audio.play().catch(e => console.log("Audio needs interaction"));
 
-    // 2. Start Surprise & Music
-    function startSurprise() {
-        document.getElementById('unlock-screen').style.display = 'none';
-        document.getElementById('main-content').style.display = 'block';
-        const audio = document.getElementById('bg-music');
-        audio.play().catch(e => console.log("Audio play prevented by browser"));
-        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        // Sparkle blast
+        confetti({ particleCount: 150, spread: 100, origin: { y: 0.5 }, colors: ['#ff758f', '#c9184a'] });
+
+        // Start intersection observer for scroll animations
+        initScrollAnimations();
     }
 
-    // 3. Quiz Logic
-    function checkAnswer(isCorrect) {
-        if (isCorrect) {
-            document.getElementById('quiz-card').style.display = 'none';
-            document.getElementById('cake-card').style.display = 'block';
-            confetti({ particleCount: 50, spread: 50, origin: { y: 0.8 }, colors: ['#ffb3c1', '#ffffff'] });
+    // 2. Scroll Reveal Animation
+    function initScrollAnimations() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.cute-card').forEach(card => observer.observe(card));
+    }
+
+    // 3. Interactive 3D Photo Stack
+    const photos = document.querySelectorAll('.photo');
+    photos.forEach(photo => {
+        photo.addEventListener('click', function() {
+            // Animate card flying away and to the back
+            this.style.transform = 'translate(-50%, -150%) rotate(15deg)';
+            this.style.opacity = '0';
+            
             setTimeout(() => {
-                document.getElementById('cake-card').scrollIntoView({ behavior: 'smooth' });
-            }, 100);
-        } else {
-            document.getElementById('quiz-error').style.display = 'block';
-            setTimeout(() => { document.getElementById('quiz-error').style.display = 'none'; }, 2000);
-        }
+                // Move to back of stack (lowest z-index)
+                photos.forEach(p => p.style.zIndex = parseInt(p.style.zIndex || 0) + 1);
+                this.style.zIndex = '1';
+                
+                // Return to center
+                const randomRot = Math.floor(Math.random() * 10) - 5;
+                this.style.transform = `translate(-50%, -50%) rotate(${randomRot}deg)`;
+                this.style.opacity = '1';
+            }, 300);
+        });
+    });
+
+    // 4. Quiz Logic
+    function wrongAnswer(btn) {
+        btn.style.backgroundColor = '#ffccd5';
+        btn.style.borderColor = 'red';
+        btn.innerText = "Nope! 😝";
+        setTimeout(() => {
+            btn.style.backgroundColor = 'white';
+            btn.style.borderColor = 'var(--pink)';
+            btn.innerText = "Try again!";
+        }, 1000);
     }
 
-    // 4. Cake Logic
+    function correctAnswer() {
+        document.getElementById('quiz-container').style.display = 'none';
+        document.getElementById('cake-card').style.display = 'block';
+        document.getElementById('cake-card').classList.add('visible');
+        confetti({ particleCount: 50, spread: 60, origin: { y: 0.8 } });
+    }
+
+    // 5. Cake Logic
     function blowCandles() {
-        document.getElementById('main-cake').innerHTML = '🍰';
-        document.getElementById('wish-msg').style.display = 'block';
+        document.getElementById('cake-emoji').innerText = '🍰🍰🍰';
+        document.getElementById('final-msg').style.display = 'block';
         var end = Date.now() + (3 * 1000);
         (function frame() {
-            confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4d6d', '#ffb3c1'] });
-            confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff4d6d', '#ffb3c1'] });
+            confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ffb3c6', '#ff8fa3'] });
+            confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ffb3c6', '#ff8fa3'] });
             if (Date.now() < end) requestAnimationFrame(frame);
         }());
     }
+
+    // 6. Passive Floating Hearts
+    setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerText = ['💖', '💕', '💌'][Math.floor(Math.random() * 3)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+    }, 800);
 </script>
 </body>
 </html>
