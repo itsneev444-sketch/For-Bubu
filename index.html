@@ -10,7 +10,7 @@
             --bg-color: #ffeef2; 
             --pink-accent: #ff85a2; 
             --dark-pink: #d94a6e; 
-            --card-bg: rgba(255, 255, 255, 0.9); /* Slightly transparent to see BG */
+            --card-bg: #ffffff; 
             --text-color: #5c3a41; 
         }
         
@@ -24,74 +24,66 @@
             cursor: pointer;
         }
 
-        /* 🌺 FULL BACKGROUND SHREENATHJI 🌺 */
-        .full-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            /* Using your specific file name from the repository */
-            background: linear-gradient(rgba(255, 238, 242, 0.7), rgba(255, 238, 242, 0.7)), url('shreenathji.jpg.png');
-            background-size: cover;
-            background-position: center;
-            filter: blur(2px); /* Makes the UI easier to read */
-        }
-
+        /* 💖 Magic Cursor Trail 💖 */
         .cursor-heart { position: fixed; pointer-events: none; font-size: 20px; animation: floatFade 1s forwards; z-index: 9999; }
         @keyframes floatFade { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-50px) scale(0.5); opacity: 0; } }
 
+        /* 🌺 SHREENATHJI BACKGROUND (FIRST SLIDE ONLY) 🌺 */
         #entry-screen { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
-            background: #ffecf0; display: flex; flex-direction: column; 
+            /* Pulling your specific file from the repository */
+            background: linear-gradient(rgba(255, 236, 240, 0.4), rgba(255, 236, 240, 0.4)), url('shreenathji.jpg.png');
+            background-size: cover;
+            background-position: center;
+            display: flex; flex-direction: column; 
             justify-content: center; align-items: center; z-index: 1000; 
             transition: opacity 1.5s ease-in-out; 
         }
 
-        /* Small preview on entry screen */
-        .shrinathji-entry { 
-            width: 250px; 
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(217, 74, 110, 0.3);
+        h1 { 
+            font-family: 'Mali', cursive; 
+            color: white; 
+            font-size: 2.8rem; 
+            text-align: center; 
+            text-shadow: 2px 2px 10px rgba(217, 74, 110, 0.8); /* Glow for visibility */
             margin-bottom: 20px;
         }
-
-        h1 { font-family: 'Mali', cursive; color: var(--dark-pink); font-size: 2.5rem; text-align: center; margin-top: 0; }
         
         .start-btn { 
             background: var(--pink-accent); color: white; border: none; 
             padding: 15px 40px; font-family: 'Mali', cursive; font-size: 1.5rem; 
-            border-radius: 50px; margin-top: 20px; cursor: pointer; 
+            border-radius: 50px; cursor: pointer; 
             box-shadow: 0 8px 0 #d94a6e; transition: 0.1s; 
         }
         .start-btn:active { transform: translateY(8px); box-shadow: 0 0 0 #d94a6e; }
 
-        #main-content { display: none; max-width: 600px; margin: 0 auto; padding: 40px 20px; padding-bottom: 100px; }
+        /* 🐼 MAIN CONTENT (BUBU WORLD) 🐼 */
+        #main-content { 
+            display: none; max-width: 600px; margin: 0 auto; padding: 40px 20px; padding-bottom: 100px;
+            background-image: radial-gradient(#ffd1dc 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
         
         .cute-card { 
             background: var(--card-bg); border-radius: 40px; padding: 30px; 
             text-align: center; margin-bottom: 50px; border: 4px solid #ffe1e8; 
             box-shadow: 0 20px 40px rgba(255, 133, 162, 0.15); position: relative; 
-            backdrop-filter: blur(5px);
         }
         
         .section-gif { width: 160px; margin-top: -80px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); }
         h2 { font-family: 'Mali', cursive; color: var(--dark-pink); font-size: 1.8rem; margin: 15px 0; }
         
         .polaroid-container { display: flex; flex-direction: column; gap: 40px; margin-top: 20px; align-items: center; }
-        .polaroid { background: white; padding: 15px 15px 25px 15px; border-radius: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); width: 85%; transform: rotate(-3deg); position: relative; transition: 0.3s; }
+        .polaroid { background: white; padding: 15px 15px 25px 15px; border-radius: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); width: 85%; transform: rotate(-3deg); transition: 0.3s; }
         .polaroid img { width: 100%; border-radius: 5px; }
         .caption { font-family: 'Mali', cursive; color: var(--dark-pink); margin-top: 15px; font-size: 1.2rem; font-weight: bold; }
         
-        .letter-box { background: rgba(255, 240, 243, 0.8); padding: 20px; border-radius: 20px; font-family: 'Mali', cursive; font-size: 1.1rem; text-align: left; line-height: 1.6; border: 2px dashed var(--pink-accent); min-height: 250px; }
+        .letter-box { background: #fff0f3; padding: 20px; border-radius: 20px; font-family: 'Mali', cursive; font-size: 1.1rem; text-align: left; line-height: 1.6; border: 2px dashed var(--pink-accent); min-height: 250px; }
         .cake-emoji { font-size: 100px; animation: gentleBounce 2s infinite; cursor: pointer; }
         @keyframes gentleBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
     </style>
 </head>
 <body>
-
-<div class="full-bg"></div>
 
 <audio id="bday-music">
     <source src="birthday_song.mp3.mp3" type="audio/mpeg">
@@ -102,7 +94,6 @@
 </audio>
 
 <div id="entry-screen">
-    <img src="shreenathji.jpg.png" class="shrinathji-entry" alt="Shrinathji">
     <h1>jai shree krishna babe</h1>
     <button class="start-btn" onclick="enterBubuWorld()">click here babyy</button>
 </div>
