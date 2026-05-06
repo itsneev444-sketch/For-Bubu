@@ -26,16 +26,16 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ✨ Custom Pink Scrollbar ✨ */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #ffe1e8; }
         ::-webkit-scrollbar-thumb { background: var(--pink-accent); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--dark-pink); }
 
-        /* ✨ Interactive Background Elements ✨ */
+        /* ✨ FIXED: Hearts now have z-index: 9998 to float OVER the background ✨ */
         .floating-heart {
             position: fixed; color: var(--pink-accent); pointer-events: none;
-            z-index: 1; animation: floatUp 4s linear infinite; opacity: 0.6;
+            z-index: 9998; animation: floatUp 4s linear infinite; opacity: 0.8;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
 
         @keyframes floatUp {
@@ -43,6 +43,7 @@
             100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
+        /* ✨ Cursor/Touch Trail ✨ */
         .cursor-heart { position: fixed; pointer-events: none; font-size: 20px; animation: floatFade 1s forwards; z-index: 9999; }
         @keyframes floatFade { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-50px) scale(0.5); opacity: 0; } }
 
@@ -83,7 +84,6 @@
             background-image: radial-gradient(#ffd1dc 2px, transparent 2px); background-size: 30px 30px;
         }
         
-        /* ✨ Advanced Glassmorphism ✨ */
         .cute-card { 
             background: var(--card-bg); border-radius: 40px; padding: 35px 30px; 
             text-align: center; margin-bottom: 60px; border: 2px solid rgba(255, 255, 255, 0.6); 
@@ -97,7 +97,6 @@
         
         .polaroid-container { display: flex; flex-direction: column; gap: 50px; margin-top: 20px; align-items: center; }
         
-        /* ✨ Scroll Reveal Setup ✨ */
         .polaroid { 
             background: white; padding: 15px 15px 25px 15px; border-radius: 12px; 
             box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 90%; 
@@ -171,18 +170,22 @@
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 <script>
-    // 💖 Mouse Trail
-    document.addEventListener('mousemove', function(e) {
-        if (Math.random() > 0.85) { 
+    // ✨ FIXED: Mouse AND Touch Trail ✨
+    function createTrail(x, y) {
+        if (Math.random() > 0.6) { 
             const heart = document.createElement('div');
             heart.innerHTML = ['💖', '🌸', '✨', '🐾'][Math.floor(Math.random() * 4)];
             heart.className = 'cursor-heart';
-            heart.style.left = e.pageX + 'px'; heart.style.top = e.pageY + 'px';
-            document.body.appendChild(heart); setTimeout(() => heart.remove(), 1000);
+            heart.style.left = x + 'px'; 
+            heart.style.top = y + 'px';
+            document.body.appendChild(heart); 
+            setTimeout(() => heart.remove(), 1000);
         }
-    });
+    }
+    document.addEventListener('mousemove', e => createTrail(e.pageX, e.pageY));
+    document.addEventListener('touchmove', e => createTrail(e.touches[0].pageX, e.touches[0].pageY)); // Adds support for swiping on phones!
 
-    // 💖 Falling Hearts
+    // ✨ FIXED: Falling Background Hearts ✨
     function createBackgroundHeart() {
         const heart = document.createElement('div');
         heart.innerHTML = ['❤️', '💖', '🌸', '✨'][Math.floor(Math.random() * 4)];
@@ -193,12 +196,12 @@
         document.body.appendChild(heart);
         setTimeout(() => heart.remove(), 6000);
     }
-    setInterval(createBackgroundHeart, 400);
+    // Makes them spawn faster so you see them immediately
+    setInterval(createBackgroundHeart, 250);
 
     const bdayAudio = document.getElementById('bday-music');
     const memoryAudio = document.getElementById('memory-music');
 
-    // Plays the second song after the first song finishes exactly once
     bdayAudio.onended = function() { memoryAudio.play(); };
 
     function enterBubuWorld() {
@@ -213,7 +216,6 @@
             confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 }, colors: ['#ff85a2', '#ffffff', '#ffd1dc', '#d94a6e'] });
             typeWriter();
             
-            // ✨ Scroll Animations Setup ✨
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
