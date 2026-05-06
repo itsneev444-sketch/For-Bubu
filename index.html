@@ -27,7 +27,6 @@
         .cursor-heart { position: fixed; pointer-events: none; font-size: 20px; animation: floatFade 1s forwards; z-index: 9999; }
         @keyframes floatFade { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-50px) scale(0.5); opacity: 0; } }
 
-        /* 🌺 ENTRY SCREEN BG FIX 🌺 */
         #entry-screen { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
             background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('shreenathji.jpg.png');
@@ -55,7 +54,6 @@
         }
         .start-btn:active { transform: translateY(8px); box-shadow: 0 0 0 #d94a6e; }
 
-        /* 🐼 MAIN CONTENT 🐼 */
         #main-content { 
             display: none; max-width: 600px; margin: 0 auto; padding: 40px 20px; padding-bottom: 100px;
             background-image: radial-gradient(#ffd1dc 2px, transparent 2px);
@@ -88,8 +86,7 @@
     <source src="birthday_song.mp3.mp3" type="audio/mpeg">
 </audio>
 
-<audio id="memory-music" loop>
-    <source src="memory_song.mp3" type="audio/mpeg">
+<audio id="memory-music"> <source src="memory_song.mp3" type="audio/mpeg">
 </audio>
 
 <div id="entry-screen">
@@ -108,16 +105,15 @@
         <img src="https://media.tenor.com/2s_X9_B2q0gAAAAj/bubu-dudu-love.gif" class="section-gif">
         <h2>Our Scrapbook 📸</h2>
         <div class="polaroid-container">
-            <div class="polaroid"><img src="2026-05-06_21-50-54_337.png"><p class="caption">Memory 1 ✨</p></div>
-            <div class="polaroid"><img src="2026-05-06_21-50-54_445.jpg"><p class="caption">Memory 2 💕</p></div>
-            <div class="polaroid"><img src="2026-05-06_21-50-54_563.jpg"><p class="caption">Memory 3 🐻</p></div>
-            <div class="polaroid"><img src="2026-05-06_21-50-54_575.jpg"><p class="caption">Memory 4 🐼</p></div>
-            <div class="polaroid"><img src="IMG_20260214_082719.jpg"><p class="caption">Memory 5 ❤️</p></div>
-            <div class="polaroid"><img src="IMG_20260307_201514.jpg"><p class="caption">Memory 6 🌸</p></div>
-            <div class="polaroid"><img src="MVIMG_20260302_103922.jpg"><p class="caption">Memory 7 🐾</p></div>
-            <div class="polaroid"><img src="MVIMG_20260403_124241.jpg"><p class="caption">Memory 8 💖</p></div>
-            <div class="polaroid"><img src="Snapchat-1092703822.jpg"><p class="caption">Memory 9 📱</p></div>
-            <div class="polaroid"><img src="IMG_20260214_082719.jpg"><p class="caption">Memory 10 🎀</p></div>
+            <div class="polaroid"><img src="2026-05-06_21-50-54_337.png"><p class="caption">Phulon wali Holi with my phul si Bubu 🌸✨</p></div>
+            <div class="polaroid"><img src="2026-05-06_21-50-54_445.jpg"><p class="caption">Suhani subah with Bhumi ☀️🦋</p></div>
+            <div class="polaroid"><img src="2026-05-06_21-50-54_563.jpg"><p class="caption">Gaurav complex se Flower Exhibition 🌻🌷</p></div>
+            <div class="polaroid"><img src="2026-05-06_21-50-54_575.jpg"><p class="caption">First outing together 👫💖</p></div>
+            <div class="polaroid"><img src="IMG_20260214_082719.jpg"><p class="caption">Pink cute stuff hunt 🎀🛍️</p></div>
+            <div class="polaroid"><img src="IMG_20260307_201514.jpg"><p class="caption">Our first trip together ✈️🗺️</p></div>
+            <div class="polaroid"><img src="MVIMG_20260302_103922.jpg"><p class="caption">Our first Holi 🎨🎊</p></div>
+            <div class="polaroid"><img src="MVIMG_20260403_124241.jpg"><p class="caption">Our first Hackathon 💻🔥</p></div>
+            <div class="polaroid"><img src="Snapchat-1092703822.jpg"><p class="caption">The Power Couple 👑💑</p></div>
         </div>
     </div>
 
@@ -160,7 +156,7 @@
         }, 1000);
     }
 
-    const textToType = "Happy birthday, meri sweetie! Nunu loves you more than anything. Ever since you came into my life, everything seems to have a meaning. My heartbeat now has a name to say with each beat. May Krishna always keep us together (I know He will). Bubu, I can't express how much I love you. This is your first birthday with me, and there are so many more to come. I'll do anything just to see you smile. I miss you so much!";
+    const textToType = "Happy birthday, meri sweetie! Nunu loves you more than anything. Ever since you came into my life, everything seems to have a meaning. My heartbeat now has a name to say with each beat. May Krishna always keep us together (I know He will). Bubu, I can't express how much I love you. This is your first birthday with me, and there are so many more to come. I'll do anything just to see you smile. I miss you so much!. Btw Babe i'm sorry i Lied to u I was doing this when i was gone . Wanted to keep it as a suprise . I Love U . I'm Gonna Marry U one Day and we will live happily ever after";
     let i = 0;
     function typeWriter() {
         if (i < textToType.length) {
