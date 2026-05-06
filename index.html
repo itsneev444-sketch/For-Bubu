@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 18th, Bhumi! 🐻🐼</title>
+    <!-- Cute Handwriting Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@500;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffeef2;
+            --pink-accent: #ff85a2;
+            --dark-pink: #d94a6e;
+            --card-bg: #ffffff;
+            --text-color: #5c3a41;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Quicksand', sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            overflow-x: hidden; 
+            cursor: pointer;
+            background-image: radial-gradient(#ffd1dc 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
+
+        /* 💖 Magic Cursor Trail 💖 */
+        .cursor-heart {
+            position: fixed;
+            pointer-events: none;
+            font-size: 20px;
+            animation: floatFade 1s forwards;
+            z-index: 9999;
+        }
+        @keyframes floatFade {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-50px) scale(0.5); opacity: 0; }
+        }
+
+        /* 🐻 Entry Screen 🐻 */
+        #entry-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: #ffecf0; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; z-index: 1000;
+            transition: opacity 1s;
+        }
+        .bubu-huge { width: 250px; filter: drop-shadow(0 10px 15px rgba(255, 133, 162, 0.4)); animation: gentleBounce 2s infinite; }
+        @keyframes gentleBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        
+        h1 { font-family: 'Mali', cursive; color: var(--dark-pink); font-size: 3rem; text-align: center; margin-top: 20px; }
+        
+        .start-btn {
+            background: var(--pink-accent); color: white; border: none; 
+            padding: 15px 40px; font-family: 'Mali', cursive; font-size: 1.5rem; 
+            border-radius: 50px; margin-top: 20px; cursor: pointer;
+            box-shadow: 0 8px 0 #d94a6e; transition: 0.1s;
+        }
+        .start-btn:active { transform: translateY(8px); box-shadow: 0 0 0 #d94a6e; }
+
+        /* 🐼 Main Content 🐼 */
+        #main-content { display: none; max-width: 600px; margin: 0 auto; padding: 40px 20px; padding-bottom: 100px; }
+
+        /* Squishy Cards */
+        .cute-card {
+            background: var(--card-bg); border-radius: 40px; padding: 30px; 
+            text-align: center; margin-bottom: 50px; border: 4px solid #ffe1e8;
+            box-shadow: 0 20px 40px rgba(255, 133, 162, 0.15);
+            position: relative;
+        }
+        .cute-card::before {
+            content: '🐾'; position: absolute; top: 20px; left: 20px; font-size: 24px; opacity: 0.5;
+        }
+        .cute-card::after {
+            content: '🐾'; position: absolute; top: 20px; right: 20px; font-size: 24px; opacity: 0.5; transform: scaleX(-1);
+        }
+
+        .section-gif { width: 160px; margin-top: -80px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); }
+        h2 { font-family: 'Mali', cursive; color: var(--dark-pink); font-size: 2rem; margin: 15px 0; }
+
+        /* Scrapbook Polaroids */
+        .polaroid-container { display: flex; flex-direction: column; gap: 30px; margin-top: 20px; align-items: center; }
+        .polaroid {
+            background: white; padding: 15px 15px 50px 15px; border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); width: 80%; transform: rotate(-3deg);
+            position: relative; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .polaroid:nth-child(even) { transform: rotate(3deg); }
+        .polaroid:hover { transform: scale(1.05) rotate(0deg); z-index: 10; }
+        .polaroid img { width: 100%; border-radius: 5px; }
+        
+        /* Cute Washi Tape */
+        .tape {
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%) rotate(-2deg);
+            width: 80px; height: 25px; background: rgba(255, 133, 162, 0.5);
+            backdrop-filter: blur(2px); border-radius: 2px;
+        }
+
+        /* Typewriter Letter */
+        .letter-box { background: #fff0f3; padding: 20px; border-radius: 20px; font-family: 'Mali', cursive; font-size: 1.2rem; text-align: left; line-height: 1.6; border: 2px dashed var(--pink-accent); min-height: 150px; }
+        
+        /* The Cake */
+        .cake-emoji { font-size: 100px; animation: gentleBounce 2s infinite; cursor: pointer; }
+
+    </style>
+</head>
+<body>
+
+<!-- Audio Player (Add your song to GitHub and name it my_song.mp3) -->
+<audio id="bg-music" loop>
+    <source src="my_song.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 🐻 Screen 1: The Hug 🐻 -->
+<div id="entry-screen">
+    <img src="https://media.tenor.com/gJIa4pDkikAAAAAM/bubu-dudu.gif" class="bubu-huge" alt="Bubu Hug">
+    <h1>Hey Bhumi...</h1>
+    <button class="start-btn" onclick="enterBubuWorld()">Tap for a surprise! 🐾</button>
+</div>
+
+<!-- 🐼 Screen 2: Bubu & Dudu's World 🐼 -->
+<div id="main-content">
+
+    <!-- Card 1: The Typing Bear -->
+    <div class="cute-card">
+        <img src="https://media.tenor.com/zWz2x4nZ6gYAAAAj/bubu-bubu-dudu.gif" class="section-gif" alt="Bubu Typing">
+        <h2>A Note for You 💌</h2>
+        <div class="letter-box" id="love-letter"></div>
+    </div>
+
+    <!-- Card 2: The Scrapbook -->
+    <div class="cute-card">
+        <img src="https://media.tenor.com/2s_X9_B2q0gAAAAj/bubu-dudu-love.gif" class="section-gif" alt="Bubu Kisses">
+        <h2>Our Scrapbook 📸</h2>
+        <p>You are my favorite view.</p>
+        <div class="polaroid-container">
+            <!-- ADD YOUR PHOTOS HERE -->
+            <div class="polaroid">
+                <div class="tape"></div>
+                <img src="photo1.jpg" alt="Memory 1">
+            </div>
+            <div class="polaroid">
+                <div class="tape" style="background: rgba(181, 228, 255, 0.6); transform: translateX(-50%) rotate(3deg);"></div>
+                <img src="photo2.jpg" alt="Memory 2">
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 3: The Cake -->
+    <div class="cute-card">
+        <img src="https://media.tenor.com/lZJtL-fN58UAAAAj/bubu-dudu.gif" class="section-gif" alt="Bubu Dancing">
+        <h2>Happy 18th! 🎉</h2>
+        <p>Tap the cake to blow out the candles!</p>
+        <div class="cake-emoji" id="cake" onclick="blowCandles()">🎂</div>
+        <h3 id="wish-text" style="display: none; color: var(--pink-accent); font-family: 'Mali'; margin-top: 20px;">May all your wishes come true, Bubu! ✨</h3>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script>
+    // 1. Magic Heart Cursor Trail
+    document.addEventListener('mousemove', function(e) {
+        if (Math.random() > 0.8) { // Don't spawn too many
+            const heart = document.createElement('div');
+            heart.innerHTML = ['💖', '🌸', '✨', '🐾'][Math.floor(Math.random() * 4)];
+            heart.className = 'cursor-heart';
+            heart.style.left = (e.pageX - 10) + 'px';
+            heart.style.top = (e.pageY - 10) + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 1000);
+        }
+    });
+
+    // 2. Enter World & Play Music
+    function enterBubuWorld() {
+        document.getElementById('entry-screen').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('entry-screen').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            
+            // Play Audio
+            document.getElementById('bg-music').play().catch(e => console.log("Audio play failed"));
+            
+            // Pop confetti
+            confetti({ particleCount: 150, spread: 100, origin: { y: 0.5 }, colors: ['#ff85a2', '#ffffff'] });
+
+            // Start Typewriter
+            typeWriter();
+        }, 1000);
+    }
+
+    // 3. Typewriter Effect for the Letter
+    const textToType = "Happy 18th Birthday to my favorite person! You make every day feel like a warm hug. I promise to always annoy you, steal your hoodies, and love you forever. Happy Birthday, Bubu! ❤️";
+    let i = 0;
+    function typeWriter() {
+        if (i < textToType.length) {
+            document.getElementById("love-letter").innerHTML += textToType.charAt(i);
+            i++;
+            setTimeout(typeWriter, 50); // Speed of typing
+        }
+    }
+
+    // 4. Blow out the candles
+    function blowCandles() {
+        document.getElementById('cake').innerHTML = '🍰';
+        document.getElementById('wish-text').style.display = 'block';
+        var end = Date.now() + (3 * 1000);
+        (function frame() {
+            confetti({ particleCount: 7, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff85a2', '#d94a6e'] });
+            confetti({ particleCount: 7, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff85a2', '#d94a6e'] });
+            if (Date.now() < end) requestAnimationFrame(frame);
+        }());
+    }
+</script>
+</body>
+</html>
