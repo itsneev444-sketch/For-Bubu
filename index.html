@@ -10,7 +10,7 @@
             --bg-color: #ffeef2; 
             --pink-accent: #ff85a2; 
             --dark-pink: #d94a6e; 
-            --card-bg: #ffffff; 
+            --card-bg: rgba(255, 255, 255, 0.75); 
             --text-color: #5c3a41; 
         }
         
@@ -22,64 +22,105 @@
             color: var(--text-color); 
             overflow-x: hidden; 
             cursor: pointer;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ✨ Custom Pink Scrollbar ✨ */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #ffe1e8; }
+        ::-webkit-scrollbar-thumb { background: var(--pink-accent); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--dark-pink); }
+
+        /* ✨ Interactive Background Elements ✨ */
+        .floating-heart {
+            position: fixed; color: var(--pink-accent); pointer-events: none;
+            z-index: 1; animation: floatUp 4s linear infinite; opacity: 0.6;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
         .cursor-heart { position: fixed; pointer-events: none; font-size: 20px; animation: floatFade 1s forwards; z-index: 9999; }
         @keyframes floatFade { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-50px) scale(0.5); opacity: 0; } }
 
-        /* 🌺 ENTRY SCREEN WITH SHREENATHJI BG 🌺 */
+        /* 🌺 ENTRY SCREEN 🌺 */
         #entry-screen { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('shreenathji.jpg.png');
-            background-size: cover;
-            background-position: center;
-            display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; z-index: 1000; 
-            transition: opacity 1.5s ease-in-out; 
+            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('shreenathji.jpg.png');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            z-index: 1000; transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1); 
         }
 
         h1 { 
-            font-family: 'Mali', cursive; 
-            color: white; 
-            font-size: 2.8rem; 
-            text-align: center; 
-            text-shadow: 0px 4px 15px rgba(0, 0, 0, 0.7);
-            margin-bottom: 20px;
+            font-family: 'Mali', cursive; color: white; font-size: 2.8rem; text-align: center; 
+            text-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8); margin-bottom: 20px; letter-spacing: 1px;
         }
         
         .start-btn { 
-            background: var(--pink-accent); color: white; border: none; 
-            padding: 15px 40px; font-family: 'Mali', cursive; font-size: 1.5rem; 
+            background: linear-gradient(135deg, #ff9aae, #ff7193); color: white; border: none; 
+            padding: 18px 45px; font-family: 'Mali', cursive; font-size: 1.6rem; 
             border-radius: 50px; cursor: pointer; 
-            box-shadow: 0 8px 0 #d94a6e; transition: 0.1s; 
+            box-shadow: 0 8px 15px rgba(217, 74, 110, 0.4), 0 8px 0 #d94a6e; 
+            transition: all 0.2s ease; animation: pulseHeart 2.5s infinite;
         }
+
+        @keyframes pulseHeart {
+            0% { transform: scale(1); box-shadow: 0 8px 15px rgba(217, 74, 110, 0.4), 0 8px 0 #d94a6e; }
+            50% { transform: scale(1.04); box-shadow: 0 15px 25px rgba(217, 74, 110, 0.6), 0 8px 0 #d94a6e; }
+            100% { transform: scale(1); box-shadow: 0 8px 15px rgba(217, 74, 110, 0.4), 0 8px 0 #d94a6e; }
+        }
+
         .start-btn:active { transform: translateY(8px); box-shadow: 0 0 0 #d94a6e; }
 
-        /* 🐼 MAIN CONTENT (BUBU WORLD) 🐼 */
+        /* 🐼 MAIN CONTENT 🐼 */
         #main-content { 
             display: none; max-width: 600px; margin: 0 auto; padding: 40px 20px; padding-bottom: 100px;
-            background-image: radial-gradient(#ffd1dc 2px, transparent 2px);
-            background-size: 30px 30px;
+            position: relative; z-index: 2;
+            background-image: radial-gradient(#ffd1dc 2px, transparent 2px); background-size: 30px 30px;
         }
         
+        /* ✨ Advanced Glassmorphism ✨ */
         .cute-card { 
-            background: var(--card-bg); border-radius: 40px; padding: 30px; 
-            text-align: center; margin-bottom: 50px; border: 4px solid #ffe1e8; 
-            box-shadow: 0 20px 40px rgba(255, 133, 162, 0.15); position: relative; 
+            background: var(--card-bg); border-radius: 40px; padding: 35px 30px; 
+            text-align: center; margin-bottom: 60px; border: 2px solid rgba(255, 255, 255, 0.6); 
+            box-shadow: 0 25px 50px rgba(255, 133, 162, 0.15), inset 0 0 20px rgba(255, 255, 255, 0.8); 
+            position: relative; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
-        .section-gif { width: 160px; margin-top: -80px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); }
-        h2 { font-family: 'Mali', cursive; color: var(--dark-pink); font-size: 1.8rem; margin: 15px 0; }
+        .cute-card:hover { transform: translateY(-5px); }
+        .section-gif { width: 160px; margin-top: -85px; filter: drop-shadow(0 8px 15px rgba(0,0,0,0.15)); }
         
-        .polaroid-container { display: flex; flex-direction: column; gap: 40px; margin-top: 20px; align-items: center; }
-        .polaroid { background: white; padding: 15px 15px 25px 15px; border-radius: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); width: 85%; transform: rotate(-2deg); }
-        .polaroid:nth-child(even) { transform: rotate(2deg); }
-        .polaroid img { width: 100%; border-radius: 5px; }
-        .caption { font-family: 'Mali', cursive; color: var(--dark-pink); margin-top: 15px; font-size: 1.1rem; font-weight: bold; }
+        .polaroid-container { display: flex; flex-direction: column; gap: 50px; margin-top: 20px; align-items: center; }
         
-        .letter-box { background: #fff0f3; padding: 20px; border-radius: 20px; font-family: 'Mali', cursive; font-size: 1.1rem; text-align: left; line-height: 1.6; border: 2px dashed var(--pink-accent); min-height: 250px; }
-        .cake-emoji { font-size: 100px; animation: gentleBounce 2s infinite; cursor: pointer; }
-        @keyframes gentleBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        /* ✨ Scroll Reveal Setup ✨ */
+        .polaroid { 
+            background: white; padding: 15px 15px 25px 15px; border-radius: 12px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 90%; 
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer; opacity: 0; transform: translateY(40px) scale(0.9);
+        }
+
+        .polaroid.visible { opacity: 1; transform: translateY(0) scale(1) rotate(-3deg); }
+        .polaroid.visible:nth-child(even) { transform: translateY(0) scale(1) rotate(3deg); }
+
+        .polaroid:hover.visible { 
+            transform: scale(1.08) rotate(0deg) !important; 
+            box-shadow: 0 20px 40px rgba(217, 74, 110, 0.25); z-index: 10;
+        }
+
+        .polaroid img { width: 100%; border-radius: 6px; }
+        .caption { font-family: 'Mali', cursive; color: var(--dark-pink); margin-top: 15px; font-size: 1.15rem; font-weight: bold; }
+        
+        .letter-box { background: rgba(255, 240, 243, 0.95); padding: 25px; border-radius: 25px; font-family: 'Mali', cursive; font-size: 1.15rem; text-align: left; line-height: 1.8; border: 2px solid rgba(255, 133, 162, 0.5); box-shadow: inset 0 0 10px rgba(255, 133, 162, 0.1); min-height: 250px; }
+        
+        .cake-emoji { font-size: 110px; animation: gentleBounce 2s infinite; cursor: pointer; transition: 0.3s; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1)); }
+        .cake-emoji:hover { transform: scale(1.15) rotate(-5deg); }
+        @keyframes gentleBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
     </style>
 </head>
 <body>
@@ -100,7 +141,7 @@
 <div id="main-content">
     <div class="cute-card">
         <img src="https://media.tenor.com/zWz2x4nZ6gYAAAAj/bubu-bubu-dudu.gif" class="section-gif">
-        <h2>Only for sirf aur sirf mera teddybear 💌</h2>
+        <h2>A Special Note for You 💌</h2>
         <div class="letter-box" id="love-letter"></div>
     </div>
 
@@ -122,29 +163,43 @@
 
     <div class="cute-card">
         <img src="https://media.tenor.com/lZJtL-fN58UAAAAj/bubu-dudu.gif" class="section-gif">
-        <h2>Happy 18th! 🎉</h2>
+        <h2>Make a Wish! 🎉</h2>
         <div class="cake-emoji" id="cake" onclick="blowCandles()">🎂</div>
-        <h3 id="wish-text" style="display: none; color: var(--pink-accent); font-family: 'Mali'; margin-top: 20px;">May Krishna always keep us together! ✨</h3>
+        <h3 id="wish-text" style="display: none; color: var(--pink-accent); font-family: 'Mali'; margin-top: 25px; font-size: 1.4rem;">May Krishna always keep us together! ✨</h3>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 <script>
+    // 💖 Mouse Trail
     document.addEventListener('mousemove', function(e) {
-        if (Math.random() > 0.8) { 
+        if (Math.random() > 0.85) { 
             const heart = document.createElement('div');
-            heart.innerHTML = '💖'; heart.className = 'cursor-heart';
+            heart.innerHTML = ['💖', '🌸', '✨', '🐾'][Math.floor(Math.random() * 4)];
+            heart.className = 'cursor-heart';
             heart.style.left = e.pageX + 'px'; heart.style.top = e.pageY + 'px';
             document.body.appendChild(heart); setTimeout(() => heart.remove(), 1000);
         }
     });
 
+    // 💖 Falling Hearts
+    function createBackgroundHeart() {
+        const heart = document.createElement('div');
+        heart.innerHTML = ['❤️', '💖', '🌸', '✨'][Math.floor(Math.random() * 4)];
+        heart.className = 'floating-heart';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+        heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+    }
+    setInterval(createBackgroundHeart, 400);
+
     const bdayAudio = document.getElementById('bday-music');
     const memoryAudio = document.getElementById('memory-music');
 
-    bdayAudio.onended = function() {
-        memoryAudio.play();
-    };
+    // Plays the second song after the first song finishes exactly once
+    bdayAudio.onended = function() { memoryAudio.play(); };
 
     function enterBubuWorld() {
         bdayAudio.play();
@@ -154,9 +209,24 @@
         setTimeout(() => {
             document.getElementById('entry-screen').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            
+            confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 }, colors: ['#ff85a2', '#ffffff', '#ffd1dc', '#d94a6e'] });
             typeWriter();
-        }, 1000);
+            
+            // ✨ Scroll Animations Setup ✨
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.polaroid').forEach(polaroid => {
+                observer.observe(polaroid);
+            });
+            
+        }, 1200);
     }
 
     const textToType = "Happy birthday, meri sweetie! Nunu loves you more than anything. Ever since you came into my life, everything seems to have a meaning. My heartbeat now has a name to say with each beat. May Krishna always keep us together (I know He will). Bubu, I can't express how much I love you. This is your first birthday with me, and there are so many more to come. I'll do anything just to see you smile. I miss you so much!. Btw Babe, I'm sorry I lied to u; I was doing this when I was gone. Wanted to keep it as a surprise. I love U. I'm gonna marry U one day, and we will live happily ever after!";
@@ -171,7 +241,14 @@
     function blowCandles() {
         document.getElementById('cake').innerHTML = '🍰';
         document.getElementById('wish-text').style.display = 'block';
-        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        
+        var end = Date.now() + (2.5 * 1000);
+        var colors = ['#ff85a2', '#ffffff', '#ffd1dc'];
+        (function frame() {
+          confetti({ particleCount: 4, angle: 60, spread: 60, origin: { x: 0 }, colors: colors });
+          confetti({ particleCount: 4, angle: 120, spread: 60, origin: { x: 1 }, colors: colors });
+          if (Date.now() < end) { requestAnimationFrame(frame); }
+        }());
     }
 </script>
 </body>
